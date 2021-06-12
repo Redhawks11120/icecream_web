@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+        <div class="logout">
+
+                <a href="{% url 'logout' %}">
+                    <button>Logout</button>
+                </a>
+                <a href="{% url 'profile' %}">
+                    <button>View profile</button>
+                </a>
+                <a href="{% url 'buy' %}">
+                    <button>Buy</button>
+                </a>
+                <a href="{% url 'show_cart' %}">
+                    <button>Cart</button>
+                </a>
+
+        </div>
+    </div>
+    <div class="content">
+        <p><font size="+2" color="navy">Hello <strong>{{user.username}}!</strong></font></p>
+    </div>
+    <div style="flex-wrap: wrap; display: flex; margin-left: 30px; margin-top: 30px; padding-left: 10px;">
+        {% for item in ice_cream %}
+        <div class="item"
+             style="margin-left: 10px; height: fit-content; border-radius: 5px; background-color: rgb(245, 239, 225);">
+            <form action="{% url 'detail' %}" method="post">
+                {% csrf_token %}
+                <p><img src="{{item.images.url}}" width="450px" height="auto"></p>
+                <div class="info" style="margin-left: 150px; margin-bottom: 15px;">
+                    <div><strong>Tên: </strong><font size="+1" color="navy">{{item.name}}</font></div>
+                    <br/>
+                    <input name="id" hidden value="{{item.id}}">
+                    <div><strong>Size:</strong>
+                        <select name="size"
+                                style="border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
+                            <option value="S">Small</option>
+                            <option value="M">Medium</option>
+                            <option value="L">Large</option>
+                        </select>
+                    </div>
+                    <br/>
+                    <button type="submit" style="margin-left: 5px; border-radius: 5px; width: 130px; height: 30px;">View
+                        Detail
+                    </button>
+                </div>
+            </form>
+        </div>
+        {% endfor%}
+    </div>
+</div>
+</body>
+</html>

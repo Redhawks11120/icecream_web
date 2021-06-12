@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+    <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+    <div class="logout">
+        <a href="{% url 'logout' %}">
+            <button>Logout</button>
+        </a>
+        <a href="{% url 'profile' %}">
+            <button>View profile</button>
+        </a>
+        <a href="{% url 'home' %}">
+            <button>Back to Home Page</button>
+        </a>
+    </div>
+</div>
+    <div class="content">
+        <div class="item" style="background-color: rgb(245, 239, 225);">
+            <p><img src="{{item.images.url}}" width="600px" height="auto"></p>
+            <div class="info" style="margin-left: 120px; margin-bottom: 15px;">
+                <div><strong>Name:</strong> <font size="+2" color="navy">{{item.name}}</font></div>
+                <br/>
+                <div><strong>Size:</strong> {{item.size}}</div>
+                <br/>
+                <div>
+                    <form action="{% url 'detail' %}" method="post">
+                        {% csrf_token %}
+                        <strong>Choose a size:</strong>
+                        <select name="size"
+                                style="border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
+                            <option value="S">Small</option>
+                            <option value="M">Medium</option>
+                            <option value="L">Large</option>
+                        </select>
+                        <input value="{{item.id}}" hidden name="id">
+                        <button type="submit" style=" border-radius: 5px; height: 30px;">View</button>
+                    </form>
+                </div>
+                <br/>
+                <div><strong>Price:</strong> <font size="+1" color="red">{{item.price}}</font> VNĐ</div>
+                <br/>
+                <div><strong>Description:</strong> {{item.description|linebreaks}}</div>
+                <form action="{% url 'cart' %}" method="post">
+                    {% csrf_token %}
+                    <input value="{{item.id}}" hidden name="item_id">
+                    <input value="{{item.size}}" hidden name="item_size">
+                    <input value="{{item.price}}" hidden name="item_price">
+                    <br/>
+                    <div>
+                        <button type="submit" style=" border-radius: 5px; width: 150px; height: 30px;">Add to Cart</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="comment">
+            <h3>Comments:</h3>
+            {% for comment in item.comments.all %}
+            <div class="cmt">
+                <p><strong>{{comment.author}}</strong></p>
+                <p>{{comment.date}}</p>
+                <p>{{comment.body|linebreaks}}</p>
+            </div>
+            {% endfor %}
+            <form action="{% url 'detail' %}" method="post">
+                {% csrf_token %}
+                <p><label>Comments: </label></p>
+                <input name="id" hidden value="{{item.id}}">
+                <input name="size" hidden value="{{size}}">
+                {{form.body}}
+                <br/>
+                <button type="submit" style="margin-left: 70px; border-radius: 5px; width: 150px; height: 30px;">Comments
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

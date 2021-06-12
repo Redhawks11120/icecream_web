@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Statistics</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+        <div class="logout">
+            <a href="{% url 'logout' %}">
+                <button>Logout</button>
+            </a>
+            <a href="{% url 'profile' %}">
+                <button>View profile</button>
+            </a>
+            <a href="{% url 'home' %}">
+                <button>Back to Home Page</button>
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>View Statistics</h3>
+        <table id="statistics"
+               style="border: 2px solid darkred; margin-top: 20px; width: 100%; border-collapse: collapse; background-color: rgb(245, 239, 225);">
+            <tr>
+                <th style="border: 1px solid rgb(82, 82, 37)"><strong style="color: red;">Name</strong></th>
+                <th style="border: 1px solid rgb(82, 82, 37)"><strong style="color: red;">Size</strong></th>
+                <th style="border: 1px solid rgb(82, 82, 37)"><strong style="color: red;">Price</strong></th>
+            </tr>
+            {% for item in ice_cream %}
+            <tr>
+                <td style="border: 1px solid rgb(82, 82, 37)">{{item.name}}</td>
+                <td style="border: 1px solid rgb(82, 82, 37)">{{item.size}}</td>
+                <td style="border: 1px solid rgb(82, 82, 37)">{{item.price}} VNĐ</td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</body>
+</html>

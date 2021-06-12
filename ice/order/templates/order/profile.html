@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+    <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+    <div class="logout">
+        <a href="{% url 'logout' %}">
+            <button>Logout</button>
+        </a>
+        <a href="{% url 'home' %}">
+            <button>Back to Home Page</button>
+        </a>
+    </div>
+</div>
+    <div class="content">
+        <br/>
+        <div><strong>Tên:</strong> <font color="navy" size="+1">{{user.username}}</font> </div>
+        <br/>
+        <div><strong>Email:</strong> <font color="navy" size="+1">{{user.email}}</font></div>
+        <br/>
+        <div><font size="+1.5"><strong>Change password</strong></font></div>
+        <br/>
+        <form action="{% url 'change' %}" method="post">
+            {% csrf_token %}
+            <input type="password" placeholder="Password" name="password"
+                   style="border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px; background-color: rgb(245, 239, 225);">
+            <input type="password" placeholder="New Password" name="newpassword"
+                   style="border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px; background-color: rgb(245, 239, 225);">
+            <input type="password" placeholder="Confirm new Password" name="renewpassword"
+                   style="border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px; background-color: rgb(245, 239, 225);">
+            <button type="submit" style="border-radius: 5px; width: 80px; height: 30px;">Change</button>
+        </form>
+        <div><p>{{message}}</p></div>
+    </div>
+</div>
+
+</body>
+</html>

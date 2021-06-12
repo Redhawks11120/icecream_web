@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+    </div>
+    <div class="content">
+        <h3>Welcome!</h3>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Username" name="username"
+                   style="border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px; background-color: rgb(245, 239, 225);">
+            <input type="password" placeholder="Password" name="password"
+                   style="border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px; background-color: rgb(245, 239, 225);">
+            <button type="submit" style="border-radius: 5px; width: 80px; height: 30px;">Login</button>
+        </form>
+        <p>Are you have a Account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</div>
+</body>
+</html>

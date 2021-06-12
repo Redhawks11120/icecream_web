@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+        <div class="logout">
+            <a href="{% url 'logout' %}">
+                <button>Logout</button>
+            </a>
+            <a href="{% url 'profile' %}">
+                <button>View profile</button>
+            </a>
+            <a href="{% url 'home' %}">
+                <button>Back to Home Page</button>
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>History</h3>
+        <table id="statistics"
+               style="border: 2px solid darkred; margin-top: 20px; width: 100%; border-collapse: collapse; background-color: rgb(245, 239, 225);">
+            <tr>
+                <th style="border: 1px solid rgb(82, 82, 37)"><strong style="color: red;">Customer</strong></th>
+                <th style="border: 1px solid rgb(82, 82, 37)"><strong style="color: red;">Price</strong></th>
+                <th style="border: 1px solid rgb(82, 82, 37)"><strong style="color: red;">Datetime</strong></th>
+            </tr>
+            {% for item in statistics %}
+            <tr>
+                <td style="border: 1px solid rgb(82, 82, 37)">{{item.customer}}</td>
+                <td style="border: 1px solid rgb(82, 82, 37)">{{item.price}} VNĐ</td>
+                <td style="border: 1px solid rgb(82, 82, 37)">{{item.date}}</td>
+                <th style="border: 1px solid rgb(82, 82, 37)">
+                    <form action="{% url 'view_statistics' %}" method="post">
+                        {% csrf_token %}
+                        <input value="{{item.items}}" hidden name="id"/>
+                        <input value="{{item.items_size}}" hidden name="size"/>
+                        <button type="submit" style="width: 100%">View Bill</button>
+                    </form>
+                </th>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</body>
+</html>

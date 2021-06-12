@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+    <div class="homepage">
+        <h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3>
+    </div>
+    <div class="logout">
+        <a href="{% url 'logout' %}">
+            <button>Logout</button>
+        </a>
+        <a href="{% url 'profile' %}">
+            <button>View profile</button>
+        </a>
+        <a href="{% url 'home' %}">
+            <button>Back to Home Page</button>
+        </a>
+    </div>
+</div>
+    <div class="content">
+        <div class="item" style="background-color: rgb(245, 239, 225); border-radius: 5px;">
+            <form action="{% url 'detail' %}" method="post">
+                {% csrf_token %}
+                <p><img src="{{ice_cream.images.url}}" width="450px" height="auto"></p>
+                <div class="info" style="margin-left: 150px; margin-bottom: 15px;">
+                    <div><strong>Tên: </strong><font size="+1" color="navy">{{ice_cream.name}}</font></div>
+                    <br/>
+                    <input name="id" hidden value="{{ice_cream.id}}">
+                    <div><strong>Size:</strong>
+                        <select name="size"
+                                style="border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px;">
+                            <option value="S">Small</option>
+                            <option value="M">Medium</option>
+                            <option value="L">Large</option>
+                        </select>
+                    </div>
+                    <br/>
+                    <button type="submit" style="margin-left: 5px; border-radius: 5px; width: 130px; height: 30px;">View
+                        Detail
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

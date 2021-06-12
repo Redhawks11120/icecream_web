@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+        <div class="logout">
+            <a href="{% url 'logout' %}">
+                <button>Logout</button>
+            </a>
+            <a href="{% url 'profile' %}">
+                <button>View profile</button>
+            </a>
+            <a href="{% url 'home' %}">
+                <button>Back to Home Page</button>
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <h3>Your Cart</h3>
+        <table id="mycart"
+               style="border: 2px solid darkred; width: 100%; border-collapse: collapse; background-color: rgb(245, 239, 225);">
+            <tr>
+                <th style="border: 1px solid rgb(82, 82, 37);">Name</th>
+                <th style="border: 1px solid rgb(82, 82, 37)">Size</th>
+                <th style="border: 1px solid rgb(82, 82, 37)">Price</th>
+            </tr>
+            {% for cart in mycart %}
+            <tr>
+                <form action="{% url 'delete' %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <th style="border: 1px solid rgb(82, 82, 37)">{{cart.item.name}}</th>
+
+                        <th style="border: 1px solid rgb(82, 82, 37)">{{cart.item.size}}</th>
+
+                        <th style="border: 1px solid rgb(82, 82, 37)">{{cart.item.price}}</th>
+                    </div>
+                    <input value="{{cart.idx}}" hidden name="idx">
+                    <th>
+                        <button type="submit" style="width: 100%">Remove</button>
+                    </th>
+                    <br/>
+                </form>
+            </tr>
+            {% endfor %}
+        </table>
+        <br/>
+        <div><a href="{% url 'buy' %}">
+            <button style="width: 100px; height: 40px;">Buy All</button>
+        </a></div>
+    </div>
+</div>
+</body>
+</html>

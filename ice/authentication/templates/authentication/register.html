@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+    </div>
+    <div class="content">
+        <h3>Register</h3>
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Email" name="useremail"
+                   style="border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px; background-color: rgb(245, 239, 225);">
+            <input type="text" placeholder="Username" name="username"
+                   style="border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px; background-color: rgb(245, 239, 225);">
+            <input type="password" placeholder="Password" name="password"
+                   style="border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px; background-color: rgb(245, 239, 225);">
+            <input type="password" placeholder="Password confirm" name="repassword"
+                   style="border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px; background-color: rgb(245, 239, 225);">
+            <button type="submit" style="border-radius: 5px; width: 80px; height: 30px;">Register</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
