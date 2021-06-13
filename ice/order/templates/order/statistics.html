@@ -42,6 +42,7 @@
                         {% csrf_token %}
                         <input value="{{item.items}}" hidden name="id"/>
                         <input value="{{item.items_size}}" hidden name="size"/>
+                        <input value="{{item.id}}" hidden name="customer"/>
                         <button type="submit" style="width: 100%">View Bill</button>
                     </form>
                 </th>

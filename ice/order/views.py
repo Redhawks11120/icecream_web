@@ -13,8 +13,6 @@ TOTAL_PRICE = 0
 
 
 def home(request):
-    if not request.user.is_authenticated:
-        return render(request, 'authentication/login.html')
 
     context = {
         'user': request.user,
@@ -57,8 +55,6 @@ def user_profile(request):
 
 
 def view_detail(request):
-    if not request.user.is_authenticated:
-        return render(request, 'authentication/login.html')
 
     if request.method == 'POST':
 

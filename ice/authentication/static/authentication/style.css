@@ -9,14 +9,14 @@ body{
     min-height: 100vh;
 }
 
-.header {
-	height: 50px;
+.header{
+	height: 75px;
 	width: 100%;
+	display: flex;
 	background-color: rgb(3, 177, 252);
 	color: white;
-	display: flex;
-	justify-content: flex-start;
 	align-items: center;
+	justify-content: space-between;
 }
 
 .logo {

@@ -12,12 +12,14 @@
     <div class="header">
     <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
     <div class="logout">
-        <a href="{% url 'logout' %}">
-            <button>Logout</button>
-        </a>
-        <a href="{% url 'profile' %}">
-            <button>View profile</button>
-        </a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">
+                <button>Logout</button>
+            </a>
+            <a href="{% url 'profile' %}">
+                <button>View profile</button>
+            </a>
+        {% endif %}
         <a href="{% url 'home' %}">
             <button>Back to Home Page</button>
         </a>
@@ -49,7 +51,8 @@
                 <div><strong>Price:</strong> <font size="+1" color="red">{{item.price}}</font> VNĐ</div>
                 <br/>
                 <div><strong>Description:</strong> {{item.description|linebreaks}}</div>
-                <form action="{% url 'cart' %}" method="post">
+                {% if user.is_authenticated %}
+                    <form action="{% url 'cart' %}" method="post">
                     {% csrf_token %}
                     <input value="{{item.id}}" hidden name="item_id">
                     <input value="{{item.size}}" hidden name="item_size">
@@ -59,28 +62,31 @@
                         <button type="submit" style=" border-radius: 5px; width: 150px; height: 30px;">Add to Cart</button>
                     </div>
                 </form>
+                {% endif %}
             </div>
         </div>
 
         <div class="comment">
             <h3>Comments:</h3>
             {% for comment in item.comments.all %}
-            <div class="cmt">
-                <p><strong>{{comment.author}}</strong></p>
-                <p>{{comment.date}}</p>
-                <p>{{comment.body|linebreaks}}</p>
-            </div>
+                <div class="cmt" style="width: 500px; margin-bottom: 5px;">
+                    <p><strong>{{comment.author}}</strong></p>
+                    <p>{{comment.date}}</p>
+                    <p>{{comment.body|linebreaks}}</p>
+                </div>
             {% endfor %}
-            <form action="{% url 'detail' %}" method="post">
-                {% csrf_token %}
-                <p><label>Comments: </label></p>
-                <input name="id" hidden value="{{item.id}}">
-                <input name="size" hidden value="{{size}}">
-                {{form.body}}
-                <br/>
-                <button type="submit" style="margin-left: 70px; border-radius: 5px; width: 150px; height: 30px;">Comments
-                </button>
-            </form>
+            {% if user.is_authenticated %}
+                <form action="{% url 'detail' %}" method="post">
+                    {% csrf_token %}
+                    <p><label>Comments: </label></p>
+                    <input name="id" hidden value="{{item.id}}">
+                    <input name="size" hidden value="{{size}}">
+                    {{form.body}}
+                    <br/>
+                    <button type="submit" style="margin-left: 70px; border-radius: 5px; width: 150px; height: 30px;">Comments
+                    </button>
+                </form>
+            {% endif %}
         </div>
     </div>
 </div>
