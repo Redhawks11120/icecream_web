@@ -39,9 +39,29 @@ def search(request):
         if check_product == True:
             return render(request, 'order/search.html', context)
         else:
-            return HttpResponseRedirect(reverse('home'))
+            check_product = False
+            name = name.lower()
+            cart_search = []
+            if name == '':
+                return HttpResponseRedirect(reverse('home'))
+            context = {
+                'user': request.user,
+            }
+            tmp = {}
+            tmp['ice'] = Ice_Cream.objects.all()
+            for i in range(len(tmp['ice'])):
+                t = tmp['ice'][i].name.lower()
+                if t.find(name) != -1:
+                    cart_search.append(tmp['ice'][i])
+                    check_product = True
+            if check_product == True:
+                context['ice_cream'] = cart_search
+                return render(request, 'order/search.html', context)
+            else:
+                return HttpResponseRedirect(reverse('home'))
     else:
         return HttpResponseRedirect(reverse('home'))
+
 
 
 def user_profile(request):

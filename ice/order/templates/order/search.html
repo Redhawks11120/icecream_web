@@ -28,29 +28,35 @@
     </div>
 </div>
     <div class="content">
-        <div class="item" style="background-color: rgb(245, 239, 225); border-radius: 5px;">
-            <form action="{% url 'detail' %}" method="post">
-                {% csrf_token %}
-                <p><img src="{{ice_cream.images.url}}" width="450px" height="auto"></p>
-                <div class="info" style="margin-left: 150px; margin-bottom: 15px;">
-                    <div><strong>Tên: </strong><font size="+1" color="navy">{{ice_cream.name}}</font></div>
-                    <br/>
-                    <input name="id" hidden value="{{ice_cream.id}}">
-                    <div><strong>Size:</strong>
-                        <select name="size"
-                                style="border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px;">
-                            <option value="S">Small</option>
-                            <option value="M">Medium</option>
-                            <option value="L">Large</option>
-                        </select>
-                    </div>
-                    <br/>
-                    <button type="submit" style="margin-left: 5px; border-radius: 5px; width: 130px; height: 30px;">View
-                        Detail
-                    </button>
-                </div>
-            </form>
-        </div>
+        {% for item in ice_cream %}
+            <div class="item" style="background-color: rgb(245, 239, 225); border-radius: 5px;">
+                <form action="{% url 'detail' %}" method="post">
+                    {% csrf_token %}
+
+                        <p><img src="{{item.images.url}}" width="450px" height="auto"></p>
+                        <div class="info" style="margin-left: 150px; margin-bottom: 15px;">
+                            <div><strong>Tên: </strong><font size="+1" color="navy">{{item.name}}</font></div>
+                            <br/>
+                            <input name="id" hidden value="{{item.id}}">
+                            <div><strong>Size:</strong>
+                                <select name="size"
+                                        style="border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px;">
+                                    <option value="S">Small</option>
+                                    <option value="M">Medium</option>
+                                    <option value="L">Large</option>
+                                </select>
+                            </div>
+                            <br/>
+                            <div><strong>Price: </strong><font size="+1" color="red">{{item.price}}</font> VNĐ</div>
+                            <br/>
+                            <button type="submit" style="margin-left: 5px; border-radius: 5px; width: 130px; height: 30px;">View
+                                Detail
+                            </button>
+                        </div>
+
+                </form>
+            </div>
+        {% endfor %}
     </div>
 </div>
 </body>
