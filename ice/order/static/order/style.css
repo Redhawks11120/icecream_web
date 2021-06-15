@@ -54,6 +54,15 @@ button{
 	border-radius: 3px;
 	border: 1px solid rgb(141, 245, 66);
 }
+
+button:hover {
+    background-color: rgb(33, 33, 33);
+}
+
+button:visited{
+    background-color: rgb(241, 255, 120);
+}
+
 .info{
 	justify-content: center;
 }
