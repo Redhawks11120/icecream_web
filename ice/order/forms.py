@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comments
+from .models import Comments, Ice_Cream
 
 
 class CommentForm(forms.ModelForm):
@@ -18,3 +18,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ["body"]
+
+class IceForm(forms.ModelForm):
+
+    class Meta:
+        model = Ice_Cream
+        fields = ['name', 'images', 'price', 'size', 'categories', 'frequencies', 'description']

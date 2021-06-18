@@ -15,4 +15,6 @@ urlpatterns = [
     path('category/', views.category_filter, name='category'),
     path('statistics/', views.statistics_manager, name='statistics'),
     path('viewstatistics/', views.view_statistics, name='view_statistics'),
+    path('add_ice/', views.add_ice, name='add_ice'),
+    path('add_form/', views.add_form, name='add_form'),
 ]

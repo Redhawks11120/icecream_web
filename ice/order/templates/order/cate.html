@@ -12,7 +12,7 @@
     <div class="header">
         <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
         <div class="logout">
-                {% user.is_authenticated %}
+                {% if user.is_authenticated %}
                     <a href="{% url 'logout' %}">
                         <button>Logout</button>
                     </a>
@@ -22,9 +22,12 @@
                     <a href="{% url 'buy' %}">
                         <button>Buy</button>
                     </a>
+                    <a href="{% url 'show_cart' %}">
+                        <button>Cart</button>
+                    </a>
                 {% endif %}
-                <a href="{% url 'show_cart' %}">
-                    <button>Cart</button>
+                <a href="{% url 'home' %}">
+                    <button>Back to Home Page</button>
                 </a>
 
         </div>

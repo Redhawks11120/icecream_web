@@ -8,8 +8,6 @@ class Ice_Cream(models.Model):
     name = models.CharField(max_length=200)
     images = models.ImageField()
     price = models.FloatField(default=0)
-    active = models.BooleanField(default=True)
-    inventory = models.IntegerField(default=0)
     ice_size = (
         ('S', 'Small'),
         ('M', 'Medium'),

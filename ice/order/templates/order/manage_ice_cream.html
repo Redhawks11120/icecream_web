@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage ice cream</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+        <div class="logout">
+            <a href="{% url 'logout' %}">
+                <button>Logout</button>
+            </a>
+            <a href="{% url 'home' %}">
+                <button>Back to Home Page</button>
+            </a>
+        </div>
+    </div>
+    <div>
+        <form action="{% url 'add_ice' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="name" value="name"/>
+            <input type="file" name="images" value="images"/>
+            <input type="text" name="price" value="price"/>
+            <select name="size">
+                <option value="S">Small</option>
+                <option value="M">Medium</option>
+                <option value="L">Large</option>
+            </select>
+            <select name="categories">
+                <option value="N">Normal</option>
+                <option value="G">Good</option>
+                <option value="D">Delicious</option>
+            </select>
+            <select name="frequencies">
+                <option value="F">Favorite</option>
+                <option value="L">Little</option>
+            </select>
+            <input type="text" name="description" value="description">
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

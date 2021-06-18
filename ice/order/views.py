@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Ice_Cream, Comments, Statistics
-from .forms import CommentForm
+from .forms import CommentForm, IceForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.hashers import check_password
@@ -13,7 +13,6 @@ TOTAL_PRICE = 0
 
 
 def home(request):
-
     context = {
         'user': request.user,
         'ice_cream': Ice_Cream.objects.all(),
@@ -63,7 +62,6 @@ def search(request):
         return HttpResponseRedirect(reverse('home'))
 
 
-
 def user_profile(request):
     if not request.user.is_authenticated:
         return render(request, 'authentication/login.html')
@@ -75,7 +73,6 @@ def user_profile(request):
 
 
 def view_detail(request):
-
     if request.method == 'POST':
 
         item_id = request.POST['id']
@@ -182,6 +179,7 @@ def buy(request):
     customer.save()
     return render(request, 'order/buy.html', {'mybuy': BUY[request.user.id], 'total_price': TOTAL_PRICE})
 
+
 def show_buy(request):
     if not request.user.is_authenticated:
         return render(request, 'authentication/login.html')
@@ -240,8 +238,6 @@ def change_pass(request):
 
 
 def category_filter(request):
-    if not request.user.is_authenticated:
-        return render(request, 'authentication/login.html')
 
     if request.method == "POST":
         cate = request.POST["cate"]
@@ -312,3 +308,27 @@ def view_statistics(request):
         return render(request, 'order/view_statistics.html', context)
     else:
         return HttpResponseRedirect(reverse('statistics'))
+
+def add_form(request):
+    return render(request, 'order/manage_ice_cream.html')
+
+def add_ice(request):
+    if request.method == "POST":
+        # form = IceForm(request.POST, request.FILES)
+        # if form.is_valid():
+        #     form.save()
+        #     return HttpResponseRedirect(reverse('home'))
+        # else:
+        #     return HttpResponseRedirect(reverse('add_form'))
+        name = request.POST['name']
+        images = request.POST['images']
+        price = float(request.POST['price'])
+        size = request.POST['size']
+        categories = request.POST['categories']
+        frequencies = request.POST['frequencies']
+        description = request.POST['description']
+        ice = Ice_Cream.objects.create(name=name, images=images, price=price, size=size, categories=categories, frequencies=frequencies, description=description)
+        ice.save()
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        return HttpResponseRedirect(reverse('home'))
