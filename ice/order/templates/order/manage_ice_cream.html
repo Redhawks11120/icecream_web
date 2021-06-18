@@ -20,28 +20,50 @@
             </a>
         </div>
     </div>
-    <div>
+    <div class="content" style="border: 2px solid darkred; margin-top: 20px; width:30%; background-color: rgb(247, 235, 235); border-radius: 5px;">
+        <h3>ADD A ICE CREAM</h3>
         <form action="{% url 'add_ice' %}" method="post">
             {% csrf_token %}
-            <input type="text" name="name" value="name"/>
-            <input type="file" name="images" value="images"/>
-            <input type="text" name="price" value="price"/>
-            <select name="size">
+            <br/>
+            <label>Enter name:</label>
+            <br/>
+            <input type="text" name="name" style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/>
+            <br/>
+            <label>Choose a image:</label>
+            <input type="file" name="images" style="margin-bottom: 10px;" />
+            <br/>
+            <label>Enter price:</label>
+            <br/>
+            <input type="text" name="price" style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/>
+            <br/>
+            <label>Enter size:</label>
+            <br/>
+            <select name="size" style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
                 <option value="S">Small</option>
                 <option value="M">Medium</option>
                 <option value="L">Large</option>
             </select>
-            <select name="categories">
+            <br/>
+            <label>Enter category:</label>
+            <br/>
+            <select name="categories" style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
                 <option value="N">Normal</option>
                 <option value="G">Good</option>
                 <option value="D">Delicious</option>
             </select>
-            <select name="frequencies">
+            <br/>
+            <label>Enter frequency:</label>
+            <br/>
+            <select name="frequencies" style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
                 <option value="F">Favorite</option>
                 <option value="L">Little</option>
             </select>
-            <input type="text" name="description" value="description">
-            <button type="submit">Add</button>
+            <br/>
+            <label>Enter description:</label>
+            <br/>
+            <input type="text" name="description" style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/>
+            <br/>
+            <button type="submit" style="margin-bottom: 10px; margin-left: 146px;">Add</button>
         </form>
     </div>
 </div>
