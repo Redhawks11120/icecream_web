@@ -295,8 +295,8 @@ def view_statistics(request):
         for i in range(len(list_item)):
             try:
                 item = Ice_Cream.objects.get(id=list_item[i])
-            except Ice_Cream.DoesNotExist:
-                raise Http404("item does not exist")
+            except:
+                return render(request, 'order/view_statistics.html', context)
             context['ice_cream'].append(item)
             context['ice_cream'][i].size = list_size[i]
             if list_size[i] == 'S':
@@ -310,9 +310,18 @@ def view_statistics(request):
         return HttpResponseRedirect(reverse('statistics'))
 
 def add_form(request):
-    return render(request, 'order/manage_ice_cream.html')
+    if not request.user.is_superuser:
+        return HttpResponseRedirect(reverse('home'))
+
+    context = {
+        'user': request.user,
+    }
+    return render(request, 'order/manage_ice_cream.html', context)
 
 def add_ice(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect(reverse('home'))
+
     if request.method == "POST":
         # form = IceForm(request.POST, request.FILES)
         # if form.is_valid():
@@ -322,13 +331,77 @@ def add_ice(request):
         #     return HttpResponseRedirect(reverse('add_form'))
         name = request.POST['name']
         images = request.POST['images']
-        price = float(request.POST['price'])
+        try:
+            price = float(request.POST['price'])
+        except:
+            return HttpResponseRedirect(reverse('add_form'))
         size = request.POST['size']
         categories = request.POST['categories']
         frequencies = request.POST['frequencies']
         description = request.POST['description']
+        if name == '' or images == '' or price == '' or size == '' or categories == '' or frequencies == '' or description == '':
+            return HttpResponseRedirect(reverse('add_form'))
         ice = Ice_Cream.objects.create(name=name, images=images, price=price, size=size, categories=categories, frequencies=frequencies, description=description)
         ice.save()
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        return HttpResponseRedirect(reverse('home'))
+
+def delete_ice(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect(reverse('home'))
+
+    if request.method == "POST":
+        id = request.POST['id']
+        Ice_Cream.objects.filter(id=id).delete()
+        return HttpResponseRedirect(reverse('home'))
+    else:
+        return HttpResponseRedirect(reverse('home'))
+
+def show_edit_form(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect(reverse('home'))
+
+    if request.method == "POST":
+        id = request.POST['id']
+        context = {
+            'item': Ice_Cream.objects.get(id=id),
+        }
+        context['item'].size = 'S'
+        return render(request, 'order/edit_form.html', context)
+    else:
+        return HttpResponseRedirect(reverse('home'))
+
+def edit_ice_cream(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect(reverse('home'))
+    if request.method == "POST":
+        id = request.POST['id']
+        item = Ice_Cream.objects.get(id=id)
+        name = request.POST['name']
+        # images = request.POST['images']
+        if request.POST['price'] != '':
+            try:
+                price = float(request.POST['price'])
+            except:
+                return HttpResponseRedirect(reverse('show_edit_form'))
+            item.price = price
+        size = request.POST['size']
+        categories = request.POST['categories']
+        frequencies = request.POST['frequencies']
+        description = request.POST['description']
+        if name != '':
+            item.name = name
+        # if not images == None:
+        #     item.images = images
+        item.size = size
+        if categories != '':
+            item.categories = categories
+        if frequencies != '':
+            item.frequencies = frequencies
+        if description != '':
+            item.description = description
+        item.save()
         return HttpResponseRedirect(reverse('home'))
     else:
         return HttpResponseRedirect(reverse('home'))

@@ -12,39 +12,39 @@
     <div class="header">
         <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
         <div class="logout">
-                {% if user.is_superuser %}
-                    <a href="{% url 'statistics' %}">
-                        <button>Statistics</button>
-                    </a>
-                    <a href="{% url 'add_form' %}">
-                        <button>Add a cream</button>
-                    </a>
-                {% endif %}
-                {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}">
-                        <button>Logout</button>
-                    </a>
-                    <a href="{% url 'profile' %}">
-                        <button>View profile</button>
-                    </a>
-                    <a href="{% url 'show_buy' %}">
-                        <button>Buy</button>
-                    </a>
-                    <a href="{% url 'show_cart' %}">
-                        <button>Cart</button>
-                    </a>
-                {% else %}
-                    <a href="{% url 'login' %}">
-                        <button>Login</button>
-                    </a>
-                {% endif %}
+            {% if user.is_superuser %}
+            <a href="{% url 'statistics' %}">
+                <button>Statistics</button>
+            </a>
+            <a href="{% url 'add_form' %}">
+                <button>Add a cream</button>
+            </a>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">
+                <button>Logout</button>
+            </a>
+            <a href="{% url 'profile' %}">
+                <button>View profile</button>
+            </a>
+            <a href="{% url 'show_buy' %}">
+                <button>Buy</button>
+            </a>
+            <a href="{% url 'show_cart' %}">
+                <button>Cart</button>
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}">
+                <button>Login</button>
+            </a>
+            {% endif %}
         </div>
     </div>
     <div class="content">
         {% if user.is_authenticated %}
-            <p><font size="+2" color="navy">Hello <strong>{{user.username}}!</strong></font></p>
+        <p><font size="+2" color="navy">Hello <strong>{{user.username}}!</strong></font></p>
         {% else %}
-            <br/>
+        <br/>
         {% endif %}
         <form action="{% url 'search' %}" method="post">
             {% csrf_token %}
@@ -55,21 +55,21 @@
         <br/>
         <form action="{% url 'category' %}" method="post">
             {% csrf_token %}
-                <select name="cate"
-                        style="border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
-                    <option value="Z"> </option>
-                    <option value="N">Normal</option>
-                    <option value="G">Good</option>
-                    <option value="D">Delicious</option>
-                </select>
-                <select name="frequency"
-                        style="border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
-                    <option value="Z"></option>
-                    <option value="F">Favorite</option>
-                    <option value="L">Little</option>
-                </select>
-                <button type="submit" style="width: 80px; height: 30px;">Filter</button>
-            </form>
+            <select name="cate"
+                    style="border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
+                <option value="Z"></option>
+                <option value="N">Normal</option>
+                <option value="G">Good</option>
+                <option value="D">Delicious</option>
+            </select>
+            <select name="frequency"
+                    style="border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
+                <option value="Z"></option>
+                <option value="F">Favorite</option>
+                <option value="L">Little</option>
+            </select>
+            <button type="submit" style="width: 80px; height: 30px;">Filter</button>
+        </form>
     </div>
     <div style="flex-wrap: wrap; display: flex; margin-left: 30px; margin-top: 30px; padding-left: 10px;">
         {% for item in ice_cream %}
@@ -98,6 +98,24 @@
                     </button>
                 </div>
             </form>
+            {% if user.is_superuser %}
+            <form action="{% url 'delete_ice' %}" method="post">
+                {% csrf_token %}
+                <input name="id" hidden value="{{item.id}}">
+                <button type="submit"
+                        style="margin-left: 154px; margin-bottom: 10px; border-radius: 5px; width: 130px; height: 30px; background-color: rgb(255, 84, 87); border: 1px solid rgb(255, 84, 87)">
+                    Delete
+                </button>
+            </form>
+            <form action="{% url 'show_edit_form' %}" method="post">
+                {% csrf_token %}
+                <input name="id" hidden value="{{item.id}}">
+                <button type="submit"
+                        style="margin-left: 154px; margin-bottom: 10px; border-radius: 5px; width: 130px; height: 30px; background-color: rgb(237, 247, 35); border: 1px solid rgb(237, 247, 35)">
+                    Edit
+                </button>
+            </form>
+            {% endif %}
         </div>
         {% endfor%}
     </div>

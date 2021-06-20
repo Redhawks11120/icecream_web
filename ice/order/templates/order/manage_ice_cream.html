@@ -4,10 +4,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Manage ice cream</title>
+    <title>Add ice cream</title>
     <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
 </head>
 <body>
+{% if user.is_superuser %}
 <div class="container">
     <div class="header">
         <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
@@ -20,25 +21,29 @@
             </a>
         </div>
     </div>
-    <div class="content" style="border: 2px solid darkred; margin-top: 20px; width:30%; background-color: rgb(247, 235, 235); border-radius: 5px;">
+    <div class="content"
+         style="border: 2px solid darkred; margin-top: 20px; width:30%; background-color: rgb(247, 235, 235); border-radius: 5px;">
         <h3>ADD A ICE CREAM</h3>
         <form action="{% url 'add_ice' %}" method="post">
             {% csrf_token %}
             <br/>
             <label>Enter name:</label>
             <br/>
-            <input type="text" name="name" style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/>
+            <input type="text" name="name"
+                   style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/>
             <br/>
             <label>Choose a image:</label>
-            <input type="file" name="images" style="margin-bottom: 10px;" />
+            <input type="file" name="images" style="margin-bottom: 10px;"/>
             <br/>
             <label>Enter price:</label>
             <br/>
-            <input type="text" name="price" style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/>
+            <input type="text" name="price"
+                   style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/>
             <br/>
             <label>Enter size:</label>
             <br/>
-            <select name="size" style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
+            <select name="size"
+                    style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
                 <option value="S">Small</option>
                 <option value="M">Medium</option>
                 <option value="L">Large</option>
@@ -46,7 +51,8 @@
             <br/>
             <label>Enter category:</label>
             <br/>
-            <select name="categories" style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
+            <select name="categories"
+                    style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
                 <option value="N">Normal</option>
                 <option value="G">Good</option>
                 <option value="D">Delicious</option>
@@ -54,19 +60,21 @@
             <br/>
             <label>Enter frequency:</label>
             <br/>
-            <select name="frequencies" style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
+            <select name="frequencies"
+                    style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
                 <option value="F">Favorite</option>
                 <option value="L">Little</option>
             </select>
             <br/>
             <label>Enter description:</label>
             <br/>
-            <input type="text" name="description" style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/>
+            <input type="text" name="description"
+                   style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/>
             <br/>
             <button type="submit" style="margin-bottom: 10px; margin-left: 146px;">Add</button>
         </form>
     </div>
 </div>
-
+{% endif %}
 </body>
 </html>

@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'order/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+    <div class="homepage"><h3><font size="+2" color="yellow">Ice-cream Sweet</font></h3></div>
+    <div class="logout">
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">
+                <button>Logout</button>
+            </a>
+            <a href="{% url 'profile' %}">
+                <button>View profile</button>
+            </a>
+        {% endif %}
+        <a href="{% url 'home' %}">
+            <button>Back to Home Page</button>
+        </a>
+    </div>
+</div>
+    <div class="content">
+        <div class="item" style="background-color: rgb(245, 239, 225);">
+            <p><img src="{{item.images.url}}" width="600px" height="auto"></p>
+            <div class="info" style="margin-left: 120px; margin-bottom: 15px;">
+                <form action="{% url 'edit_ice_cream' %}" method="post">
+                    {% csrf_token %}
+<!--                    <div><strong>Change images: </strong><input type="file" name="images" style="margin-bottom: 10px;"/></div>-->
+<!--                    <br/>-->
+                    <div><strong>Name:</strong> <font size="+2" color="navy">{{item.name}}</font></div>
+                    <br/>
+                    <div><strong>Change name: </strong><input type="text" name="name"
+                   style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/></div>
+                    <br/>
+                    <div><strong>Size:</strong> {{item.size}}</div>
+                    <br/>
+                    <div><strong>Price:</strong> <font size="+1" color="red">{{item.price}}</font> VNĐ</div>
+                    <br/>
+                     <div><strong>Change price: </strong><input type="text" name="price"
+                   style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/></div>
+                    <br/>
+                    <div><strong>Description:</strong> {{item.description|linebreaks}}</div>
+                    <br/>
+                    <div><strong>Change description: </strong><input type="text" name="description"
+                   style="margin-bottom: 10px; border: solid 1px rgb(3, 177, 252); border-radius: 5px; width: 200px; height: 30px;"/></div>
+                    <input value="{{item.id}}" hidden name="id">
+                    <input value="{{item.size}}" hidden name="size">
+                    <br/>
+                    <div><strong>Change category:</strong>
+                        <select name="categories"
+                                style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
+                            <option value="N">Normal</option>
+                            <option value="G">Good</option>
+                            <option value="D">Delicious</option>
+                        </select>
+                    </div>
+                    <br/>
+                    <div><strong>Change frequency:</strong>
+                        <select name="frequencies"
+                                style="margin-bottom: 10px; border: solid 2px darkred; border-radius: 5px; width: 80px; height: 30px; background-color: rgb(252, 252, 252);">
+                            <option value="F">Favorite</option>
+                            <option value="L">Little</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" style=" border-radius: 5px; width: 150px; height: 30px;">Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -14,7 +14,10 @@ urlpatterns = [
     path('change/', views.change_pass, name='change'),
     path('category/', views.category_filter, name='category'),
     path('statistics/', views.statistics_manager, name='statistics'),
-    path('viewstatistics/', views.view_statistics, name='view_statistics'),
+    path('view_statistics/', views.view_statistics, name='view_statistics'),
     path('add_ice/', views.add_ice, name='add_ice'),
     path('add_form/', views.add_form, name='add_form'),
+    path('delete_ice/', views.delete_ice, name='delete_ice'),
+    path('show_edit_form/', views.show_edit_form, name='show_edit_form'),
+    path('edit_ice_cream/', views.edit_ice_cream, name='edit_ice_cream'),
 ]
